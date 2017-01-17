@@ -1,0 +1,50 @@
+## Contains Point ##
+
+# How to call this - python /works/Research/Contains-point-agb
+
+import numpy as np
+import matplotlib.path as mplPath
+import matplotlib.pyplot as plt
+
+
+#change file name for different cluster
+
+v, vmi = np.loadtxt("NGC0104R.RDVIQ.cal.adj.zpt",usecols=[3,5],skiprows=3,unpack=True)
+
+## Test plot
+
+plt.xlim(-4,6)
+
+plt.ylim(20,10)
+
+
+plt.scatter(vmi,v,s=1)
+
+
+
+## Write down the boundary point coordinate
+
+bbPath = mplPath.Path(np.array([
+                     (1.0954, 11.7346),
+                     (0.9588, 12.2954),
+                     (0.8696, 12.8256),
+                     (0.8013, 13.3864),
+                     (0.7593, 13.4986),
+                     (-0.0177, 13.4986),
+                     (0.5178, 11.0820)]))
+
+Keep = bbPath.contains_points(np.transpose([vmi, v]))
+vmi_bump=vmi[Keep]
+v_bump=v[Keep]
+
+plt.scatter(vmi_bump,v_bump)
+plt.show()
+
+#Keep = mag[bbPath.contains_points(np.array([vmi, v]) np.transpose([colour, mag])]
+
+vgs=-np.sort(-v_bump)
+plt.plot(vgs,np.arange(len(vgs))+1)
+
+plt.show()
+
+

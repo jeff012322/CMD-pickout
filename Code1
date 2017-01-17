@@ -1,0 +1,43 @@
+
+# How to call this - python /works/Research/Code1
+
+import numpy as np
+
+
+#change file name for different cluster
+
+v, vmi = np.loadtxt("NGC0104R.RDVIQ.cal.adj.zpt",usecols=[3,5],skiprows=3,unpack=True)
+
+import matplotlib.pyplot as plt
+
+
+#Vary the parameter
+plt.xlim(-4,6)
+
+plt.ylim(20,10)
+
+
+plt.scatter(vmi,v,s=1)
+
+#vcf = v cut off
+vcf=14.5
+
+#vmicf= vmi cut off
+vmicf=0.5
+
+keep=(v<vcf) & (vmi>vmicf) 
+vg=v[keep]
+vmig=vmi[keep]
+plt.scatter(vmig,vg,s=10)
+
+plt.show()
+
+
+vgs=-np.sort(-vg)
+
+plt.xlim(vcf,9)
+
+plt.plot(vgs,np.arange(len(vgs))+1)
+
+plt.show()
+

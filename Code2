@@ -1,0 +1,44 @@
+# How to call this - python /works/Research/Code2
+
+import numpy as np
+
+
+#change file name for different cluster
+
+v, vmi = np.loadtxt("NGC0104R.RDVIQ.cal.adj.zpt",usecols=[3,5],skiprows=3,unpack=True)
+
+import matplotlib.pyplot as plt
+
+
+#Vary the parameter for code 2
+plt.xlim(-4,6)
+
+plt.ylim(15,10)
+
+
+plt.scatter(vmi,v,s=1)
+
+#vcf = v cut off
+vcf=14.0
+
+#vmicf= vmi cut off
+vmicf=0.5
+
+# Ideas, maybe we can limit the upper bound as well? 
+
+keep=(v<vcf) & (vmi>vmicf) & (v<13.5) & (vmi<1)
+vg=v[keep]
+vmig=vmi[keep]
+plt.scatter(vmig,vg,s=10)
+
+plt.show()
+
+vgs=-np.sort(-vg)
+
+plt.xlim(vcf,9)
+
+plt.plot(vgs,np.arange(len(vgs))+1)
+
+plt.show()
+
+
